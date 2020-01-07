@@ -1,24 +1,43 @@
 import React, { useState } from 'react';
 
 const Form = () => {
-    const blankItem = { name: '', description: '' };
-    const [itemState, setItemState] = useState([
-      {...blankItem}
-    ]);
+	const [ ownerState, setOwnerState ] = useState({
+		owner: '',
+		description: ''
+	});
 
-    const addItem = () => {
-        setItemState([...itemState, {...blankItem}]);
-      };
+	const handleOwnerChange = (e) =>
+		setOwnerState({
+			...ownerState,
+			[e.target.name]: [ e.target.value ]
+		});
+
+	const blankItem = { name: '', description: '' };
+	const [ itemState, setItemState ] = useState([ { ...blankItem } ]);
+
+	const addItem = () => {
+		setItemState([ ...itemState, { ...blankItem } ]);
+	};
 
 	return (
 		<form>
 			<label htmlFor="owner">Owner</label>
-			<input type="text" name="owner" id="owner" />
-			<label htmlFor="description">Description</label>
-			<input type="text" name="description" id="description" />
-            <input type="button" value="Add Item"
-            onClick={addItem}
+            <input 
+            type="text" 
+            name="owner" 
+            id="owner"
+            value={ownerState.owner}
+            onChange={handleOwnerChange} 
             />
+			<label htmlFor="description">Description</label>
+            <input 
+            type="text" 
+            name="description" 
+            id="description" 
+            value={ownerState.owner}
+            onChange={handleOwnerChange}
+            />
+			<input type="button" value="Add Item" onClick={addItem} />
 			{itemState.map((val, idx) => {
 				const itemId = `name-${idx}`;
 				const descriptionId = `description-${idx}`;
